@@ -1,0 +1,27 @@
+{
+  "name": "slimp3-server",
+  "version": "1.0.0",
+  "description": "SliMP3 Server for NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo no test command"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajzat34/slimp3-server.git"
+  },
+  "keywords": [
+    "slimp3",
+    "server",
+    "socket",
+    "SliMP3",
+    "client",
+    "udp"
+  ],
+  "author": "ajzat34",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ajzat34/slimp3-server/issues"
+  },
+  "homepage": "https://github.com/ajzat34/slimp3-server#readme"
+}
