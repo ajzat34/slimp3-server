@@ -123,15 +123,13 @@ class Client {
     this.close_callback()
   }
 
-  // calls a function of (code, object) in a loop
-  // code is an ir code, and object is an arbartrary object that can be used for storing data across calls
+  // calls a function of (code) in a loop
   // an object must be returned: {exit: <bool>, return: <anything>}
   async filter (filterCallback) {
-    var o = {}
     try {
       while (true) {
         var code = await this.get_ir()
-        var result = filterCallback(code, o)
+        var result = filterCallback(code)
         if (result.exit) {
           return result.return
         }
@@ -143,8 +141,9 @@ class Client {
 
   // returns a promise, fulfilled when any mapped key is pressed
   pauseAny () {
-    return this.filter(function(code){
-      if (this.mapper.isMapped(code)) {
+    var self = this
+    return self.filter(function(code){
+      if (self.mapper.isMapped(code)) {
         return {exit: true}
       }
     })
@@ -152,12 +151,61 @@ class Client {
 
   // returns a promise, fulfilled when any mapped key in the sepcified group is pressed
   pauseGroup (groupName) {
-    return this.filter(function(code){
-      if (this.mapper.groupCode(groupName, code)) {
+    var self = this
+    return self.filter(function(code){
+      if (self.mapper.groupCode(groupName, code)) {
         return {exit: true}
       }
     })
   }
+
+  // returns a promise that will be fulfilled with a digit
+  readDigit () {
+    var self = this
+    return this.filter(function(code){
+      if (self.mapper.groupCode('digit', code)) {
+        return {exit: true, return: self.mapper.map(code)}
+      }
+    })
+  }
+
+  // accepts an array of items, returns an promise that will resolve to an index or an error
+  // if a promt is given it will be centered on the top row, if a prompt is not given the display will not be cleared
+  // the menu will be displayed only on the bottom row
+  menu (items, prompt) {
+    var self = this
+    var item = 0
+
+    // if a promt was given, clear the display and write the prompt
+    if (prompt) {
+      this.clear()
+      this.write(0, this.dbuf.centerOffset(prompt.length), prompt)
+    }
+
+    // function to draw menu line
+    const draw = function(item) {
+      self.write(0, 1, this.dbuf.clear_row)
+      var last = wrap(item-1, items.length)
+      var next = wrap(item+1, items.length)
+      var current = `[${items[item]}]`
+      self.write(0, 1, items[last])
+      self.write(this.dbuf.rightOffset(items[next].length), 1, items[next])
+      self.write(this.dbuf.centerOffset(current.length), 1, current)
+      self.update()
+    }
+    draw(0)
+
+    // use filter to draw the menu
+    return self.filter(function(code){
+      const key = self.mapper.map(code)
+      if (self.mapper.group('next', key)) {item++}
+      if (self.mapper.group('prev', key)) {item--}
+      if (self.mapper.group('ok', key)) {return {exit: true, return: item}}
+      item = wrap(item, items.length)
+      draw(item)
+    })
+  }
+
 }
 
 // class for deferred promises

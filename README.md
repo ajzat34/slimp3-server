@@ -61,6 +61,38 @@ server.on('connection', async function(client){
 })
 ```
 
+# Menu Building
+
+### Pause
+```node
+server.on('connection', async function(client){
+  // pauses on any mapped key
+  await client.pauseAny()
+
+  // pauses on a key in a group
+  await client.pauseGroup('yes')
+})
+```
+
+### Read A Digit Key
+```node
+server.on('connection', async function(client){
+  const digit = client.readDigit()
+  c.send('you presses: ', digit)
+})
+```
+
+### Menu
+```node
+const menu = ['Item1', 'Item2', 'Item 3', 'Fourth Item']
+
+server.on('connection', async function(client){
+  const index = await client.menu(menu, 'Choose an item')
+  const item = menu[index]
+  c.send('you chose: ' + item)
+})
+```
+
 # Further Reading
 * [SliMP3 Protocol Page](http://wiki.slimdevices.com/index.php/SLIMP3_client_protocol)
 * [Wireshark Protocol Page](https://www.wireshark.org/docs/dfref/s/slimp3.html)

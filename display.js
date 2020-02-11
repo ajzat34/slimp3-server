@@ -14,6 +14,7 @@ class Buff {
 
   // recreates the buffer, and fills it with spaces
   make_clear() {
+    this.clear_row = ' '.repeat(this.size)
     this.buff = Buffer.allocUnsafe(this.size*this.count)
     this.buff.fill(' ')
   }
