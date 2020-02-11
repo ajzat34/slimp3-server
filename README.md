@@ -61,6 +61,65 @@ server.on('connection', async function(client){
 })
 ```
 
+## Mapping Ir Codes
+Client.mapper allows you to map ir codes to key strings.
+
+### Default Sony Universal Remote (With JVC Codes)
+The remote included with slimp3 is a sony universal remote, slimp3 uses the JVC mode that can be set by pressing:
+
+* `S`
+* `DVD`
+* `0` `0` `7`
+* `ENT`
+* `DVD`
+* `By default clients will map ir codes for the included remote.`
+
+```node
+server.on('connection', async function(client){
+  // this function will return a promise that will be fulfilled when the next IR Code is recived
+  var code = await client.get_ir()
+
+  // if the code is unknown this will return 'unmapped'
+  var key = client.mapper.map(code)
+
+  // test if the key is in a group
+  var bool = client.mapper.group('enter', key)
+})
+Non-Standard Remote
+```
+
+Create a mapper:
+```node
+const mapper = new slimp3.Mapper({
+  // key mapping
+  <ir_code>: '<key string>',
+}, {
+  // key groups
+  yes: ['<key_string>'],
+  no: ['<key_string>'],
+  enter: ['<key_string>'],
+  // ect...
+})
+```
+Attach a mapper to a client:
+
+```node
+server.on('connection', async function(client){
+  client.mapper = mapper
+})
+```
+### IR Callback
+You can also recive ir codes via callback:
+
+```node
+server.on('connection', async function(client){
+  client.irCallback = function(code){
+    // if the function returns false, the code will be ignored, and will not fufill the ir promise
+    // this can be usefull for catching specific ir codes like `power` and `sleep`
+    return true
+  }
+```
+
 # Menu Building
 
 ### Pause
