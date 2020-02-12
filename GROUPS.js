@@ -1,4 +1,4 @@
-exports = {
+exports.export = {
   // menus
   next: ['right', 'up', 'ch+'],
   prev: ['left', 'down', 'ch-'],

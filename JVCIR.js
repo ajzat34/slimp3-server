@@ -1,4 +1,4 @@
-exports = {
+exports.export = {
   // main keys
   0xf702: 'power',
   0xf783: 'menu',

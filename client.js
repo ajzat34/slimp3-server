@@ -130,8 +130,10 @@ class Client {
       while (true) {
         var code = await this.get_ir()
         var result = filterCallback(code)
-        if (result.exit) {
-          return result.return
+        if (result) {
+          if (result.exit) {
+            return result.return
+          }
         }
       }
     } catch (err) {
@@ -179,18 +181,18 @@ class Client {
     // if a promt was given, clear the display and write the prompt
     if (prompt) {
       this.clear()
-      this.write(0, this.dbuf.centerOffset(prompt.length), prompt)
+      this.write(this.dbuf.centerOffset(prompt.length), 0, prompt)
     }
 
     // function to draw menu line
     const draw = function(item) {
-      self.write(0, 1, this.dbuf.clear_row)
+      self.write(0, 1, self.dbuf.clear_row)
       var last = wrap(item-1, items.length)
       var next = wrap(item+1, items.length)
       var current = `[${items[item]}]`
       self.write(0, 1, items[last])
-      self.write(this.dbuf.rightOffset(items[next].length), 1, items[next])
-      self.write(this.dbuf.centerOffset(current.length), 1, current)
+      self.write(self.dbuf.rightOffset(items[next].length), 1, items[next])
+      self.write(self.dbuf.centerOffset(current.length), 1, current)
       self.update()
     }
     draw(0)

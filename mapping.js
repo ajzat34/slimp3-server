@@ -1,5 +1,5 @@
-const JVCIR = require('./JVCIR.js')
-const GROUPS = require('./GROUPS.js')
+const JVCIR = require('./JVCIR.js').export
+const GROUPS = require('./GROUPS.js').export
 
 // maps ir codes to key strings
 class Mapper{
@@ -19,6 +19,10 @@ class Mapper{
     } else {
       this.groups = GROUPS
     }
+
+    console.log(this.groups)
+    console.log(GROUPS)
+
   }
 
   map (code) {
@@ -39,20 +43,16 @@ class Mapper{
   }
 
   group (name, key) {
+    console.log(this.groups)
     if (this.groups[name]) {
       return this.groups[name].includes(key)
     } else {
-      throw new Error(`Mapper does not contain group ${name}`)
+      throw new Error(`Mapper does not contain group '${name}'`)
     }
   }
 
   groupCode (name, code) {
-    const key = this.map(code)
-    if (this.groups[name]) {
-      return this.groups[name].includes(key)
-    } else {
-      throw new Error(`Mapper does not contain group ${name}`)
-    }
+    return this.group(this.map(code))
   }
 
 }
