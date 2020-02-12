@@ -20,9 +20,6 @@ class Mapper{
       this.groups = GROUPS
     }
 
-    console.log(this.groups)
-    console.log(GROUPS)
-
   }
 
   map (code) {
@@ -43,7 +40,6 @@ class Mapper{
   }
 
   group (name, key) {
-    console.log(this.groups)
     if (this.groups[name]) {
       return this.groups[name].includes(key)
     } else {
