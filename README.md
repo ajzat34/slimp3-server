@@ -137,7 +137,7 @@ server.on('connection', async function(client){
 ```node
 server.on('connection', async function(client){
   const digit = client.readDigit()
-  c.send('you presses: ', digit)
+  c.send('you pressed: ', digit)
 })
 ```
 
