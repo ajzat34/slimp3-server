@@ -26,8 +26,8 @@ class Buff {
 
   // returns the index of a Letter on the display
   indexLixel(x,y){
-    if (x>=this.size) { throw new Error(`x: ${x} out of range (max: ${this.size-1})`)}
-    if (y>=this.count) { throw new Error(`y: ${y} out of range (max: ${this.count-1})`)}
+    if (x>=this.size) { throw new Error(`x-coord: ${x} out of range (max: ${this.size-1})`)}
+    if (y>=this.count) { throw new Error(`y-coord: ${y} out of range (max: ${this.count-1})`)}
     return (this.size*y)+x
   }
 
