@@ -137,7 +137,7 @@ server.on('connection', async function(client){
 ```node
 server.on('connection', async function(client){
   const digit = client.readDigit()
-  c.send('you pressed: ', digit)
+  client.send('you pressed: ', digit)
 })
 ```
 
@@ -148,7 +148,7 @@ const menu = ['Item1', 'Item2', 'Item 3', 'Fourth Item']
 server.on('connection', async function(client){
   const index = await client.menu(menu, 'Choose an item')
   const item = menu[index]
-  c.send('you chose: ' + item)
+  client.send('you chose: ' + item)
 })
 ```
 
