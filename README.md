@@ -1,5 +1,5 @@
 # SliMP3-Server
-slimp3-server provides functions for the SliMP3 Client Protocol. The package was designed to reflect the structure of the standard tcp socket server.
+slimp3-server implements the SliMP3 Client Protocol in NodeJS. The package was designed to reflect the structure of the standard tcp socket server.
 
 ![Picture of slimp3 device](/slimp3.jpg)
 
