@@ -141,6 +141,14 @@ class Client {
     }
   }
 
+  sleep (time) {
+    return new Promise(function(resolve){
+      setTimeout(function(){
+        resolve()
+      }, time)
+    })
+  }
+
   // returns a promise, fulfilled when any mapped key is pressed
   pauseAny () {
     var self = this
