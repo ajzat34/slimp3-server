@@ -48,7 +48,7 @@ class Mapper{
   }
 
   groupCode (name, code) {
-    return this.group(this.map(code))
+    return this.group(name, this.map(code))
   }
 
 }
