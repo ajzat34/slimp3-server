@@ -1,13 +1,11 @@
 # SliMP3-Server
-slimp3-server implements the SliMP3 Client Protocol in NodeJS. The package was designed to reflect the structure of the standard tcp socket server.
+slimp3-server implements the SliMP3 Client Protocol in NodeJS. Designed to reflect the structure of the standard tcp server.
 
 ![Picture of slimp3 device](/slimp3.jpg)
 
 This server only supprots the orinigal SliMP3 Client Protocol, meaning it only supports a limited number of devices. It has only been tested with the device pictured above.
 
 # Quick Start
-This section will show you how to install, and provide basic usage for slimp3-server
-
 ### Install:
 ```
 npm install slimp3-server
